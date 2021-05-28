@@ -14,16 +14,17 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+        
     - name: Restore dependencies
       run: dotnet restore
-
-- name: Package generator
+    
+    - name: Package generator
       run: dotnet build -c Release -o out
       
-      -name : Nuget Push
-      run: 
-      cd out 
-      dotnet nuget push *.nupkg --api-key ${{secrets.GITHUB_TOKEN}} --source "https://nuget.pkg.github.com/aassismoraes/index.json"
+    - name : Nuget Push
+      run: | 
+        cd out 
+        dotnet nuget push *.nupkg --api-key ${{secrets.GITHUB_TOKEN}} --source "https://nuget.pkg.github.com/aassismoraes/index.json"
       
       
     
