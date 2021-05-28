@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Am.Notifications</name>
+    </assembly>
+    <members>
+        <member name="T:Am.Notifications.Notifiable">
+            <summary>
+            Must be inherit by class
+            </summary>
+        </member>
+        <member name="M:Am.Notifications.Notifiable.AddNotification(System.String,System.String,Am.Notifications.NotificationType,System.String,System.Net.HttpStatusCode,System.Boolean)">
+            <summary>
+            Add a notification to object
+            </summary>
+            <param name="returnMessage">Message thats be retorned to client.</param>
+            <param name="testedProperty">Ex. StringNullOrEmpty.</param>
+            <param name="notificationType">Level of notification.</param>
+            <param name="returnCode">Some internal error or info code.</param>
+            <param name="statusCodeHttp">HttpStatusCode to return.</param>
+            <param name="isBlocking">Determines if the notification is a blocking notification.</param>
+        </member>
+        <member name="M:Am.Notifications.Notifiable.GetAndClearNotifications">
+            <summary>
+            Returns and clear this object notifications.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.Notifiable.GetAndClearAllNotifications">
+            <summary>
+            Returns and clear all notifications in the system.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.Notifiable.GetNotifications">
+            <summary>
+            Returns this object notifications.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.Notifiable.HasNotifications">
+            <summary>
+            True if this object has notifications.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.KvnNotifications.AddNotification(System.String,System.String,Am.Notifications.NotificationType,System.String,System.Net.HttpStatusCode,System.Boolean)">
+            <summary>
+            Add a notification to object
+            </summary>
+            <param name="returnMessage">Message thats be retorned to client.</param>
+            <param name="testedProperty">Ex. StringNullOrEmpty.</param>
+            <param name="notificationType">Level of notification.</param>
+            <param name="returnCode">Some internal error or info code.</param>
+            <param name="statusCodeHttp">HttpStatusCode to return.</param>
+            <param name="isBlocking">Determines if the notification is a blocking notification.</param>
+        </member>
+        <member name="M:Am.Notifications.KvnNotifications.GetNotifications">
+            <summary>
+            Returns this object notifications.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.KvnNotifications.GetAndClearNotifications">
+            <summary>
+            Returns and clear this object notifications.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.KvnNotifications.HasNotifications">
+            <summary>
+            True if this object has notifications.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.Validation.ValueIsLessOrEqualsThen(System.Double,System.Double,System.String)">
+            <summary>
+            Will throw notification when property be less then informated value
+            </summary>
+            <param name="property"></param>
+            <param name="minimunValue"></param>
+            <param name="errorMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.Validation.ValueIsBiggerOrEqualsThen(System.Double,System.Double,System.String)">
+            <summary>
+            Will throw notification when property be bigger then informated value
+            </summary>
+            <param name="property"></param>
+            <param name="maximumValue"></param>
+            <param name="errorMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.Validation.IsNullEmptyOrWhiteSpace(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="property"></param>
+            <param name="errorMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.Validation.IsNotNumber(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="property"></param>
+            <param name="errorMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.Validation.IsTooBig(System.String,System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="property"></param>
+            <param name="maxLengh"></param>
+            <param name="errorMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.Validation.IsNull(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="property"></param>
+            <param name="errorMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.Validation.IsNullOrWhiteSpace(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="property"></param>
+            <param name="errorMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.Validation.SetUniqueMessage(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="property"></param>
+            <param name="errorMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Am.Notifications.Validation.ReturnNotifiable(Am.Notifications.Notifiable)">
+            <summary>
+            
+            </summary>
+            <param name="notifiable"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
