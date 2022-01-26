@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
@@ -9,7 +10,7 @@ namespace Am.Notifications
     /// </summary>
     public class Notifiable
     {
-        private static List<Notification> Notifications = new List<Notification>();
+        private static List<Notification> _notifications = new List<Notification>();
         public bool invalid = false;
         public bool Invalid
         {
@@ -68,11 +69,11 @@ namespace Am.Notifications
             HttpStatusCode statusCodeHttp = HttpStatusCode.UnprocessableEntity, bool isBlocking = false)
         {
             var notification = new Notification(returnMessage, testedProperty, notificationType, returnCode, statusCodeHttp);
-            KvnNotifications.AddNotification(returnMessage, testedProperty, notificationType, returnCode, statusCodeHttp);
+            Notifications.AddNotification(returnMessage, testedProperty, notificationType, returnCode, statusCodeHttp);
 
             SetProperties(notificationType, isBlocking);
 
-            Notifications.Add(notification);
+            _notifications.Add(notification);
 
         }
 
@@ -82,13 +83,13 @@ namespace Am.Notifications
         /// <returns></returns>
         public IReadOnlyCollection<Notification> GetAndClearNotifications()
         {
-            var _notifications = new List<Notification>(Notifications);
+            var notifications = new List<Notification>(_notifications);
 
-            Notifications.Clear();
+            _notifications.Clear();
 
             ResetProperties();
 
-            return _notifications;
+            return notifications;
         }
 
         /// <summary>
@@ -97,10 +98,10 @@ namespace Am.Notifications
         /// <returns></returns>
         public IReadOnlyCollection<Notification> GetAndClearAllNotifications()
         {
-            var _notifications = new List<Notification>(Notifications);
+            var notifications = new List<Notification>(_notifications);
 
-            Notifications.Clear();
-            KvnNotifications.GetAndClearNotifications();
+            _notifications.Clear();
+            Notifications.GetAndClearNotifications();
 
             ResetProperties();
 
@@ -113,7 +114,7 @@ namespace Am.Notifications
         /// <returns></returns>
         public IReadOnlyCollection<Notification> GetNotifications()
         {
-            return Notifications;
+            return _notifications;
         }
 
         /// <summary>
@@ -122,7 +123,7 @@ namespace Am.Notifications
         /// <returns></returns>
         public bool HasNotifications()
         {
-            return Notifications.Count() > 0;
+            return _notifications.Count() > 0;
         }
 
         private void SetProperties(NotificationType notificationType, bool isBlocking)
@@ -152,9 +153,9 @@ namespace Am.Notifications
 
     }
 
-    public static class KvnNotifications
+    public static class Notifications
     {
-        private static List<Notification> Notifications = new List<Notification>();
+        private static List<Notification> _notifications = new List<Notification>();
 
         public static bool invalid = false;
         public static bool Invalid
@@ -214,7 +215,7 @@ namespace Am.Notifications
 
             SetProperties(notificationType, isBlocking);
 
-            Notifications.Add(notification);
+            _notifications.Add(notification);
 
         }
 
@@ -224,7 +225,7 @@ namespace Am.Notifications
         /// <returns></returns>
         public static IReadOnlyCollection<Notification> GetNotifications()
         {
-            return Notifications;
+            return _notifications;
         }
 
         /// <summary>
@@ -233,12 +234,12 @@ namespace Am.Notifications
         /// <returns></returns>
         public static IReadOnlyCollection<Notification> GetAndClearNotifications()
         {
-            var _notifications = new List<Notification>(Notifications);
+            var notifications = new List<Notification>(_notifications);
 
-            Notifications.Clear();
+            _notifications.Clear();
             ResetProperties();
 
-            return _notifications;
+            return notifications;
         }
 
         /// <summary>
@@ -247,7 +248,26 @@ namespace Am.Notifications
         /// <returns></returns>
         public static bool HasNotifications()
         {
-            return Notifications.Count() > 0;
+            return _notifications.Count() > 0;
+        }
+
+        public static ControllerBase Throw(this ControllerBase controllerBase, IEnumerable<object> _obj)
+        {                       
+
+            if (Notifications.HasNotifications())
+            {
+                var notification = Notifications.GetAndClearNotifications();
+                var _statusCode = (int)notification.FirstOrDefault().StatusCodeHttp;
+
+                controllerBase.StatusCode(_statusCode, notification);
+            }
+
+            if (_obj == null)
+            {
+                controllerBase.StatusCode(204);               
+            }
+           
+            return controllerBase;         
         }
 
         private static void SetProperties(NotificationType notificationType, bool isBlocking)

@@ -15,4 +15,8 @@ Facilita na validação de campos.</Description>
     <DocumentationFile>C:\Repos\Am\src\Am.Notifications\Am.Notifications.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+  </ItemGroup>
+
 </Project>
